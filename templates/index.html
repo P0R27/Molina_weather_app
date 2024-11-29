@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta el Clima</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/clima" href="{{ url_for('static', filename='images/trabajo.ico') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row vh-100 align-items-center">
+            <!-- Formulario a la izquierda -->
+            <div class="col-md-6 p-5">
+                <h1 class="titulo text-primary">🌤️ Consulta el Clima</h1>
+                <p class="lead">Introduce una ciudad para conocer su clima actual.</p>
+                <form method="POST">
+                    <div class="form-group">
+                        <label for="ciudad" class="form-label">Ciudad:</label>
+                        <input type="text" id="ciudad" name="ciudad" class="form-control" placeholder="Ejemplo: Lima" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Consultar</button>
+                </form>
+            </div>
+            <!-- Resultados a la derecha -->
+            <div class="col-md-6 p-5 resultados bg-light">
+                {% if weather_data %}
+                    {% if weather_data.error %}
+                        <div class="alert alert-danger">
+                            {{ weather_data.error }}
+                        </div>
+                    {% else %}
+                        <h2 class="text-success">🌍 Ciudad: {{ weather_data.ciudad }}</h2>
+                        <ul class="list-group mt-4">
+                            <li class="list-group-item"><strong>Temperatura:</strong> {{ weather_data.temperatura }}°C</li>
+                            <li class="list-group-item"><strong>Descripción:</strong> {{ weather_data.descripcion }}</li>
+                            <li class="list-group-item"><strong>Latitud:</strong> {{ weather_data.latitud }}</li>
+                            <li class="list-group-item"><strong>Longitud:</strong> {{ weather_data.longitud }}</li>
+                        </ul>
+                    {% endif %}
+                {% else %}
+                    <p class="text-secondary">No hay resultados aún. Por favor, realiza una búsqueda.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <footer class="bg-info text-center text-lg-start fixed-bottom">
+        <div class="text-center p-3" style="background-color:red">
+            2024 Copyright:
+            <a href="cv.html" target="_blank">Pablo Emilio Molina Merchan</a>
+</body>
+</html>
